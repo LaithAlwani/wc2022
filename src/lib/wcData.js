@@ -1,4 +1,4 @@
-export const groups = [
+export const groupsData = [
   {
     id: "A",
     teams: [

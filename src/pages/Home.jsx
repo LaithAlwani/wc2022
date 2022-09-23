@@ -1,7 +1,7 @@
 import CountDownTimer from "../components/CountDownTimer";
 import Signin from "../components/Signin";
 import Flag from "react-flagkit";
-// import { groups } from "../lib/wcData";
+import { groupsData } from "../lib/wcData";
 import { collection, doc, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
 import { db } from "../lib/firebaseConfig";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [groups, setGroups] = useState(null);
   const importTeams = () => {
-    groups.forEach(({ id, teams }) => {
+    groupsData.forEach(({ id, teams }) => {
       setDoc(doc(db, "groups", id), { teams })
         .then((result) => {
           console.log(result);
@@ -26,14 +26,12 @@ export default function Home() {
           id: doc.id,
           teams: [...doc.data().teams].sort(
             (a, b) =>
-              b.points - a.points
-              || b.goalsFor - b.goalsAgainst - (a.goalsFor - a.goalsAgainst)
-              || b.goalsFor - a.goalsFor
+              b.points - a.points ||
+              b.goalsFor - b.goalsAgainst - (a.goalsFor - a.goalsAgainst) ||
+              b.goalsFor - a.goalsFor
           ),
         });
       });
-
-      console.log(groupsTemp[0]);
       setGroups(groupsTemp);
     });
     return () => unsub;
@@ -61,17 +59,19 @@ export default function Home() {
           <div key={id} className="group">
             <p>Group {id}</p>
             <table>
-              <tr>
-                <th>Team</th>
-                <th>GP</th>
-                <th>Points</th>
-                <th>W</th>
-                <th>L</th>
-                <th>T</th>
-                <th>GF</th>
-                <th>GA</th>
-                <th>GD</th>
-              </tr>
+              <thead>
+                <tr>
+                  <th>Team</th>
+                  <th>GP</th>
+                  <th>Points</th>
+                  <th>W</th>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>GF</th>
+                  <th>GA</th>
+                  <th>GD</th>
+                </tr>
+              </thead>
               {teams.map(
                 ({
                   country,
@@ -84,20 +84,22 @@ export default function Home() {
                   tie,
                   points,
                 }) => (
-                  <tr>
-                    <th className="group-team">
-                      <Flag country={code} />
-                      <span>{country}</span>
-                    </th>
-                    <th>{gamesPlayed}</th>
-                    <th>{points}</th>
-                    <th>{win}</th>
-                    <th>{loss}</th>
-                    <th>{tie}</th>
-                    <th>{goalsFor}</th>
-                    <th>{goalsAgainst}</th>
-                    <th>{goalsFor - goalsAgainst}</th>
-                  </tr>
+                  <tbody key={country}>
+                    <tr>
+                      <th className="group-team">
+                        <Flag country={code} />
+                        <span>{country}</span>
+                      </th>
+                      <th>{gamesPlayed}</th>
+                      <th>{points}</th>
+                      <th>{win}</th>
+                      <th>{loss}</th>
+                      <th>{tie}</th>
+                      <th>{goalsFor}</th>
+                      <th>{goalsAgainst}</th>
+                      <th>{goalsFor - goalsAgainst}</th>
+                    </tr>
+                  </tbody>
                 )
               )}
             </table>
