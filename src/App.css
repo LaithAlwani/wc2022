@@ -72,13 +72,24 @@ nav .links {
   width: 3em;
 }
 /*groups*/
-table{
- width: 100%;
- text-align: center;
+.group-container{
+  text-align: center;
 }
+.group{
+  overflow-x: scroll;
+  margin-bottom: 2em;
+}
+.group::-webkit-scrollbar {
+  display: none;
+}
+table{
+  width: 100%;
+}
+
 table th,
 table tr{ min-width: 5em;
 margin-block: 0.5em;
+font-weight: 500;
 }
 
 table .group-team{
@@ -92,6 +103,12 @@ table .group-team{
 }
 
 /*games*/
+.date-picker{
+  width: 50%;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  border: none;
+}
 .matches-container {
   display: flex;
   flex-wrap: wrap;

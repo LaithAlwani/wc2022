@@ -28,7 +28,7 @@ export const db = getFirestore(app)
 export const storage = getStorage(app)
 const analytics = getAnalytics(app);
 
-if (location.hostname === "localhost") {
+if (location.hostname === "127.0.0.1" || location.hostname ==="localhost") {
   console.log("dev-env")
   connectStorageEmulator(storage, "localhost", 9199, { disableWarnings: false });
   connectFirestoreEmulator(db, "localhost", 8080, { disableWarnings: false });

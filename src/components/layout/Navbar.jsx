@@ -26,13 +26,12 @@ export default function Navbar() {
         {user && username && (
           <>
             <Link to="/#">My Groups</Link>
-
-            <img src={user.photoURL} alt={username} className="avatar" />
-          </>
-        )}
             <Link to="/" onClick={handleLogout}>
               Log Out
             </Link>
+            <img src={user.photoURL} alt={username} className="avatar" />
+          </>
+        )}
       </div>
     </nav>
   );

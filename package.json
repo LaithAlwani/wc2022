@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --open",
+    "dev": "vite --open localhost",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -12,6 +12,7 @@
     "dateformat": "^5.0.3",
     "firebase": "^9.10.0",
     "lodash.debounce": "^4.0.8",
+    "luxon": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-flagkit": "^2.0.4",

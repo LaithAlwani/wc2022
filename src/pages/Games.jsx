@@ -4,9 +4,10 @@ import { db } from "../lib/firebaseConfig";
 import { matches } from "../lib/wcData";
 import { useEffect, useState } from "react";
 import dateFormat, { masks } from "dateformat";
+import { DateTime } from "luxon";
 
 export default function Games() {
-  const today = "2022-11-20 00:00:00";
+  const [today, setToday] = useState(DateTime.fromISO("2022-11-20"));
   const [allMatches, setAllMatches] = useState([]);
 
   const importMatches = () => {
@@ -45,8 +46,13 @@ export default function Games() {
     );
   };
 
+  const changeDay = (value) => {
+    value === "next" ? setToday(today.plus({ days: 1 })) : setToday(today.minus({ days: 1 }));
+  };
+
   useEffect(() => {
-    const q = query(collection(db, "matches"), orderBy("dateUtc"));
+    const searchDate = today.toISODate();
+    const q = query(collection(db, "matches"), where("date", "==", searchDate));
     const unsub = onSnapshot(q, (querySnapshot) => {
       const tempMatches = [];
       if (!querySnapshot.empty) {
@@ -57,11 +63,17 @@ export default function Games() {
       setAllMatches(tempMatches);
     });
     return () => unsub;
-  }, []);
+  }, [today]);
   return (
     <div>
-      <button onClick={importMatches}>import</button>
-      <h1>Matches: {new Date(today).toDateString()}</h1>
+      {/* <button onClick={importMatches}>import</button> */}
+      <input
+        className="date-picker"
+        type="date"
+        onChange={(e) => setToday(DateTime.fromISO(e.target.value))
+        }
+      />
+      <h1>Matches: {today.toLocaleString(DateTime.DATE_MED)}</h1>
       <div className="matches-container">
         {allMatches.length > 0 ? (
           allMatches.map(
@@ -77,7 +89,7 @@ export default function Games() {
             }) => (
               <div className="match-card" key={matchNumber}>
                 <div className="time-date">
-                  <span>{dateFormat(dateUtc,"dd/mmm/yyyy hh:MM tt")}</span>
+                  <span>{dateFormat(dateUtc, "dd/mmm/yyyy hh:MM tt")}</span>
                   <span>{matchNumber < 10 ? `0${matchNumber}` : matchNumber}</span>
                 </div>
                 <div className="match-teams">
@@ -94,6 +106,8 @@ export default function Games() {
           <p>no games today</p>
         )}
       </div>
+      <button onClick={() => changeDay("prev")}>Prev</button>
+      <button onClick={() => changeDay("next")}>Next</button>
     </div>
   );
 }

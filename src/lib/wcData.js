@@ -12,6 +12,7 @@ export const groupsData = [
         loss: 0,
         goalsFor: 0,
         goalsAgainst: 0,
+        
       },
       {
         country: "Ecuador",
@@ -23,6 +24,7 @@ export const groupsData = [
         loss: 0,
         goalsFor: 0,
         goalsAgainst: 0,
+        
       },
       {
         country: "Senegal ",
