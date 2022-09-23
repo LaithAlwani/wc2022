@@ -30,8 +30,8 @@ const analytics = getAnalytics(app);
 
 if (location.hostname === "127.0.0.1" || location.hostname ==="localhost") {
   console.log("dev-env")
-  connectStorageEmulator(storage, "localhost", 9199, { disableWarnings: false });
-  connectFirestoreEmulator(db, "localhost", 8080, { disableWarnings: false });
-  connectAuthEmulator(auth, "http://localhost:9099", { disableWarnings: false });
+  connectStorageEmulator(storage, "localhost", 9199, { disableWarnings: true });
+  connectFirestoreEmulator(db, "localhost", 8080, { disableWarnings: true });
+  connectAuthEmulator(auth, "http://localhost:9099", { disableWarnings: true });
   // connectFunctionsEmulator(functions, "localhost", 5001, { disableWarnings: false });
 }

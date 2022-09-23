@@ -5,13 +5,14 @@
   line-height: 24px;
   font-weight: 400;
   color: #333;
-  background-color: #f2f2f2;
+  background-color: #fff;
 }
 *{
   box-sizing: border-box;
 }
 html, body{
   min-height: 100vh;
+  margin: 0;
 }
 
 a {

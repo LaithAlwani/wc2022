@@ -1,6 +1,7 @@
 :root {
   --width: 62em;
   --padding: 1em;
+  --qatar-bg:#8d1b3d;
 }
 
 main {
@@ -20,16 +21,25 @@ nav {
   justify-content: space-between;
 }
 nav .logo {
-  width: 8em;
+  width: 4em;
 }
 nav .avatar {
   width: 2em;
+  height: 2em;
   border-radius: 50%;
 }
 
 nav .links {
   display: flex;
   align-items: center;
+}
+
+button{
+  background-color: var(--qatar-bg);
+  color: white;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  border: none;
 }
 
 /*home page*/
@@ -62,8 +72,8 @@ nav .links {
   margin-block: 1em;
 }
 .rules > div {
-  max-width: 18em;
-  height: 12em;
+  max-width: 30em;
+  height: auto;
   padding: 1em;
   border: 1px #333 solid;
   border-radius: 0.5em;
@@ -108,6 +118,18 @@ table .group-team{
   padding: 0.5em;
   border-radius: 0.5em;
   border: none;
+  background-color: var(--qatar-bg);
+  color: white;
+  margin-bottom: 2em;
+  text-align: center;
+  
+}
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+.date-btns{
+  display: flex;
+  justify-content: space-around;
 }
 .matches-container {
   display: flex;
@@ -126,7 +148,7 @@ table .group-team{
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background: rgb(84, 84, 84);
+  background-color: var(--qatar-bg);
   color: white;
 }
 .match-card span{
@@ -138,9 +160,13 @@ table .group-team{
   justify-content: space-evenly;
   align-items: center;
 }
+.shdow{
+  box-shadow: 1px 1px 2px #333;
+  height: 2.5em;
+}
 .time-date {
   width: 100%;
-  background-color: lightgray;
+  background-color: rgb(233, 233, 233);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -150,7 +176,30 @@ table .group-team{
 }
 
 @media screen and (max-width: 48em) {
+  main{
+    margin-bottom: 4em;
+  }
   .rules {
     flex-direction: column;
+  }
+  nav .links{
+    width: 100%;
+    padding: 0.5em 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--qatar-bg);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+  .links a{
+    color: white;
+  }
+  .date-picker{
+    width: 100%;
+  }
+  footer{
+    display: none;
   }
 }

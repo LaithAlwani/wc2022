@@ -23,7 +23,7 @@ export default function Navbar() {
       </Link>
       <div className="links">
         <Link to="/games">Games</Link>
-        {user && username && (
+        {user && (
           <>
             <Link to="/#">My Groups</Link>
             <Link to="/" onClick={handleLogout}>

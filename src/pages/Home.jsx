@@ -41,16 +41,10 @@ export default function Home() {
       <CountDownTimer />
       <section className="rules">
         <div>
-          <h3>Guess</h3>
-          <p>guess the score of every game, submit your guess every days to gain points</p>
-        </div>
-        <div>
-          <h3>points</h3>
-          <p>guess which team wins correctly and get 1 point, accurate score add 2 points</p>
-        </div>
-        <div>
-          <h3>Easy</h3>
-          <p>create a group and invite your friends to play</p>
+          <h2>The Rules</h2>
+          <p>Guess the score of every match, submit your guess every day to gain points</p>
+          <p>Each correct guess adds 1 point to your personal score, accurate guesses add 2 more points</p>
+          {/* <p>create a group and invite your friends to play</p> */}
         </div>
       </section>
       <Signin />

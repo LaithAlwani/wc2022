@@ -62,7 +62,7 @@ export default function Games() {
       } else console.log("it's empty");
       setAllMatches(tempMatches);
     });
-    return () => unsub;
+    // return () => unsub;
   }, [today]);
   return (
     <div>
@@ -70,9 +70,12 @@ export default function Games() {
       <input
         className="date-picker"
         type="date"
-        onChange={(e) => setToday(DateTime.fromISO(e.target.value))
-        }
+        onChange={(e) => setToday(DateTime.fromISO(e.target.value))}
       />
+      <div className="date-btns">
+        <button onClick={() => changeDay("prev")}>Prev</button>
+        <button onClick={() => changeDay("next")}>Next</button>
+      </div>
       <h1>Matches: {today.toLocaleString(DateTime.DATE_MED)}</h1>
       <div className="matches-container">
         {allMatches.length > 0 ? (
@@ -93,10 +96,10 @@ export default function Games() {
                   <span>{matchNumber < 10 ? `0${matchNumber}` : matchNumber}</span>
                 </div>
                 <div className="match-teams">
-                  <Flag country={homeTeam.code} size={48} />
-                  {homeTeam.country} {homeTeamScore ? homeTeamScore : 0} -
+                  <Flag country={homeTeam.code} size={54} className="shdow" />
+                  {homeTeam.country} {homeTeamScore ? homeTeamScore : 0} -{" "}
                   {awayTeamScore ? awayTeamScore : 0} {awayTeam.country}
-                  <Flag country={awayTeam.code} size={48} />
+                  <Flag country={awayTeam.code} size={54} className="shdow" />
                 </div>
                 <span>{location}</span>
               </div>
@@ -106,8 +109,6 @@ export default function Games() {
           <p>no games today</p>
         )}
       </div>
-      <button onClick={() => changeDay("prev")}>Prev</button>
-      <button onClick={() => changeDay("next")}>Next</button>
     </div>
   );
 }
