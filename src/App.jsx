@@ -3,9 +3,10 @@ import Layout from "./components/layout/Layout";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
-import Games from "./pages/Games";
+import Games from "./pages/Matches";
 import { UserContext } from "./lib/context";
 import { useUserData } from "./lib/hooks";
+import Groups from "./pages/Groups";
 
 function App() {
   const userData = useUserData()
@@ -17,7 +18,8 @@ function App() {
             <Toaster />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="games" element={<Games />} />
+              <Route path="matches" element={<Games />} />
+              <Route path="groups" element={<Groups />} />
             </Routes>
           </Layout>
         </div>

@@ -21,7 +21,7 @@ nav {
   justify-content: space-between;
 }
 nav .logo {
-  width: 4em;
+  width: 6em;
 }
 nav .avatar {
   width: 2em;
@@ -34,12 +34,30 @@ nav .links {
   align-items: center;
 }
 
+nav .links :is(a, span){
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+}
+
+.sign-in span{
+    font-weight: 500;
+    color: #333;
+    text-decoration: inherit;
+    padding: 0 0.5em;
+}
+
 button{
-  background-color: var(--qatar-bg);
-  color: white;
+  border: 1px solid var(--qatar-bg);
+  color: var(--qatar-bg);
+  background-color: white;
   padding: 0.5em;
   border-radius: 0.5em;
-  border: none;
+}
+.mr{
+  margin-right: 0.5em;
 }
 
 /*home page*/
@@ -64,23 +82,40 @@ button{
 }
 
 .rules {
-  display: flex;
   text-align: center;
-  justify-content: center;
-  align-items: center;
-  gap: 1em;
+  margin-inline: auto;
   margin-block: 1em;
-}
-.rules > div {
   max-width: 30em;
-  height: auto;
   padding: 1em;
   border: 1px #333 solid;
   border-radius: 0.5em;
 }
-.emoji {
-  width: 3em;
+
+.group-card{
+  max-width: 20em;
+  border-radius: 0.5em;
+  background-color: var(--qatar-bg);
+  margin:0.5em auto ;
+  padding: 1em;
+  color: white;
 }
+.group-card > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.group-card div:first-of-type{align-items: flex-end;}
+.group-card :is(h3, h4){
+  flex-basis: 60%;
+}
+.group-card h3{
+  margin-top: 0.25em;
+}
+.group-card h4{
+  display: flex;
+  align-items: center;
+}
+
 /*groups*/
 .group-container{
   text-align: center;
@@ -113,6 +148,9 @@ table .group-team{
 }
 
 /*games*/
+.matches{
+  text-align: center;
+}
 .date-picker{
   width: 50%;
   padding: 0.5em;
@@ -141,8 +179,7 @@ table .group-team{
   padding: 0;
   border: 1px #333 solid;
   border-radius: 0.5em;
-  width: 20em;
-  height: 10em;
+  width: 18em;
   margin-block: 0.5em;
   display: flex;
   flex-direction: column;
@@ -153,16 +190,25 @@ table .group-team{
 }
 .match-card span{
   font-size: 0.825em;
+  
 }
 .match-teams{
   width: 100%;
+  padding: 0 1em;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
-.shdow{
+.match-teams > div {
+  width: 100%;
+display: flex;
+align-items: center;
+}
+.team-score{margin-left: auto;}
+.shadow{
   box-shadow: 1px 1px 2px #333;
-  height: 2.5em;
+  height: 1.5em;
 }
 .time-date {
   width: 100%;
@@ -174,7 +220,13 @@ table .group-team{
   border-radius: 0.5em 0.5em 0 0;
   color: #333;
 }
-
+.match-card-footer{
+  width: 100%;
+  padding: 0 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 @media screen and (max-width: 48em) {
   main{
     margin-bottom: 4em;
@@ -193,7 +245,7 @@ table .group-team{
     bottom: 0;
     left: 0;
   }
-  .links a{
+  .links :is(a,span){
     color: white;
   }
   .date-picker{

@@ -4,6 +4,13 @@ import { UserContext } from "../../lib/context";
 import { signOut } from "firebase/auth";
 import { auth } from "../../lib/firebaseConfig";
 import toast from "react-hot-toast";
+import Signin from "../Signin";
+import {GiSoccerField} from "react-icons/gi"
+import { GiSoccerKick } from "react-icons/gi"
+import { MdGroups } from "react-icons/md"
+import { MdLogout } from "react-icons/md"
+
+
 
 export default function Navbar() {
   const { user, username, loading } = useContext(UserContext);
@@ -22,15 +29,19 @@ export default function Navbar() {
         <img src="/images/logo.png" alt="logo" className="logo" />
       </Link>
       <div className="links">
-        <Link to="/games">Games</Link>
-        {user && (
+        <Link to="matches"><GiSoccerField size={32}  /> Matches </Link>
+        <Link to="groups"><GiSoccerKick size={32} /> Groups</Link>
+        <Link to="my-groups"><MdGroups size={32} />Rakings</Link>
+        {user ? (
           <>
-            <Link to="/#">My Groups</Link>
-            <Link to="/" onClick={handleLogout}>
+            <Link to="" onClick={handleLogout}>
+              <MdLogout size={32} />
               Log Out
             </Link>
             <img src={user.photoURL} alt={username} className="avatar" />
           </>
+        ) : (
+          <Signin />
         )}
       </div>
     </nav>

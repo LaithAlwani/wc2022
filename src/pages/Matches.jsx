@@ -5,8 +5,9 @@ import { matches } from "../lib/wcData";
 import { useEffect, useState } from "react";
 import dateFormat, { masks } from "dateformat";
 import { DateTime } from "luxon";
+import {MdEdit} from "react-icons/md"
 
-export default function Games() {
+export default function Matches() {
   const [today, setToday] = useState(DateTime.fromISO("2022-11-20"));
   const [allMatches, setAllMatches] = useState([]);
 
@@ -65,8 +66,9 @@ export default function Games() {
     // return () => unsub;
   }, [today]);
   return (
-    <div>
+    <section className="matches">
       {/* <button onClick={importMatches}>import</button> */}
+      <h2>Matches: {today.toLocaleString(DateTime.DATE_MED)}</h2>
       <input
         className="date-picker"
         type="date"
@@ -76,7 +78,6 @@ export default function Games() {
         <button onClick={() => changeDay("prev")}>Prev</button>
         <button onClick={() => changeDay("next")}>Next</button>
       </div>
-      <h1>Matches: {today.toLocaleString(DateTime.DATE_MED)}</h1>
       <div className="matches-container">
         {allMatches.length > 0 ? (
           allMatches.map(
@@ -96,12 +97,22 @@ export default function Games() {
                   <span>{matchNumber < 10 ? `0${matchNumber}` : matchNumber}</span>
                 </div>
                 <div className="match-teams">
-                  <Flag country={homeTeam.code} size={54} className="shdow" />
-                  {homeTeam.country} {homeTeamScore ? homeTeamScore : 0} -{" "}
-                  {awayTeamScore ? awayTeamScore : 0} {awayTeam.country}
-                  <Flag country={awayTeam.code} size={54} className="shdow" />
+                  <div>
+                    <Flag country={homeTeam.code} size={32} className="shadow mr" />
+                    <p>{homeTeam.country}</p>
+                    <span className="team-score">{homeTeamScore ? homeTeamScore : 0}</span>
+                  </div>
+                  <div>
+                    <Flag country={awayTeam.code} size={32} className="shadow mr" />
+                    <p>{awayTeam.country}</p>
+                    <span className="team-score">{awayTeamScore ? awayTeamScore : 0}</span>
+                  </div>
                 </div>
-                <span>{location}</span>
+                <div className="match-card-footer">
+                  <span>{location}</span>
+                  <span><MdEdit size={24} /></span>
+                  <button>Guess</button>
+                </div>
               </div>
             )
           )
@@ -109,6 +120,6 @@ export default function Games() {
           <p>no games today</p>
         )}
       </div>
-    </div>
+    </section>
   );
 }

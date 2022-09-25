@@ -7,6 +7,7 @@ import { UserContext } from "../lib/context";
 import { toast } from "react-hot-toast";
 import debounce from "lodash.debounce";
 import { useNavigate } from "react-router-dom";
+import {FcGoogle} from "react-icons/fc"
 
 export default function Signin() {
   const navigate = useNavigate()
@@ -37,8 +38,8 @@ export default function Signin() {
       {user && !username ? (
         <UsernameForm />
       ) : (
-        <section className="sigin-in">
-          <button onClick={signInWithGoogle}>sign in with Google</button>
+        <section className="sign-in">
+          <span onClick={signInWithGoogle}><FcGoogle size={32}/>Sign in </span>
         </section>
       )}
     </div>
