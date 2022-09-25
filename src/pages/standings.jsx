@@ -1,8 +1,8 @@
 import Flag from "react-flagkit";
-import { useGetGroups } from "../lib/hooks";
+import { useGetStandings } from "../lib/hooks";
 
-export default function Groups() {
-  const { loading, groups } = useGetGroups();
+export default function standings() {
+  const { loading, groups } = useGetStandings();
   console.log(groups)
   return (
     !loading &&
@@ -39,7 +39,7 @@ export default function Groups() {
                   <tbody key={country}>
                     <tr>
                       <th className="group-team">
-                        <Flag country={code} />
+                        <Flag country={code} size={37} className="mr shadow" />
                         <span>{country}</span>
                       </th>
                       <th>{gamesPlayed}</th>

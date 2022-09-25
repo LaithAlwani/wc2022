@@ -1,14 +1,14 @@
 import CountDownTimer from "../components/CountDownTimer";
-import Signin from "../components/Signin";
+import Signin from "./Login";
 import { groupsData } from "../lib/wcData";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../lib/firebaseConfig";
-import { useGetGroups } from "../lib/hooks";
+import { auth, db } from "../lib/firebaseConfig";
+import { useGetStandings } from "../lib/hooks";
 import Flag from "react-flagkit";
-import App from "../App";
+
 
 export default function Home() {
-  const { loading, groups } = useGetGroups();
+  const { loading, groups } = useGetStandings();
 
   const importTeams = () => {
     groupsData.forEach(({ id, teams }) => {
@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <section>
-      <h1 style={{fontSize:"1em"}}>
+      <h1 style={{ fontSize: "1em" }}>
         <CountDownTimer />
       </h1>
 
@@ -35,28 +35,30 @@ export default function Home() {
         </p>
         {/* <p>create a group and invite your friends to play</p> */}
       </section>
-      {!loading &&
-        groups.map(({ id, teams }) => (
-          <div key={id} className="group-card">
-            <div>
-              <h3>Group {id}</h3>
-              <span>GP</span>
-              <span>P</span>
-            </div>
-            {teams.map((team) => (
-              <div className="">
-                <h4>
-                  {" "}
-                  <Flag country={team.code} size={32} className="mr shadow" />
-                  {team.country}
-                </h4>
-
-                <p>{team.gamesPlayed}</p>
-                <p>{team.points}</p>
+      <section className="group-list">
+        {!loading &&
+          groups.map(({ id, teams }) => (
+            <div key={id} className="group-card">
+              <div>
+                <h3>Group {id}</h3>
+                <span>GP</span>
+                <span>P</span>
               </div>
-            ))}
-          </div>
-        ))}
+              {teams.map((team) => (
+                <div className="">
+                  <h4>
+                    {" "}
+                    <Flag country={team.code} size={32} className="mr shadow" />
+                    {team.country}
+                  </h4>
+
+                  <p>{team.gamesPlayed}</p>
+                  <p>{team.points}</p>
+                </div>
+              ))}
+            </div>
+          ))}
+      </section>
     </section>
   );
 }

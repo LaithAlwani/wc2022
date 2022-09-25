@@ -14,7 +14,7 @@ main {
 /* layout */
 nav {
   max-width: 70em;
-  padding: var(--padding);
+  padding: var(--padding) 0.5em 0;
   margin-inline: auto;
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@ nav {
 nav .logo {
   width: 6em;
 }
-nav .avatar {
+.avatar {
   width: 2em;
   height: 2em;
   border-radius: 50%;
@@ -91,14 +91,23 @@ button{
   border-radius: 0.5em;
 }
 
+.group-list{
+  display: flex;
+  overflow-x: scroll;
+  justify-content: flex-start;
+  max-width: none;
+}
+
+
 .group-card{
-  max-width: 20em;
-  border-radius: 0.5em;
+  min-width: 20em;
+  border-radius: 10em 10em 10em 50%/1.25em;
   background-color: var(--qatar-bg);
-  margin:0.5em auto ;
+  margin:0.5em ;
   padding: 1em;
   color: white;
 }
+
 .group-card > div {
   display: flex;
   align-items: center;
@@ -128,22 +137,22 @@ button{
   display: none;
 }
 table{
-  width: 100%;
+  /* width: 100%; */
+  margin-inline: auto;
 }
 
 table th,
-table tr{ min-width: 5em;
+table tr{ min-width: 3em;
 margin-block: 0.5em;
 font-weight: 500;
 }
 
 table .group-team{
   display: flex;
-  width: 100%;
+  width: 12em;
   justify-content: flex-start;
   align-items: center;
   font-size: 1.1rem;
-  width: 170px;
   padding-left: 1em;
 }
 
@@ -227,6 +236,50 @@ align-items: center;
   justify-content: space-between;
   align-items: center;
 }
+
+/*rankings*/
+.cards-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+  
+}
+.player-card{
+  position: relative;
+  width: 16em;
+  padding: 1em;
+  text-align: center;
+  background-color: var(--qatar-bg);
+  border-radius: 0.5em;
+  color: white;
+}
+.rank{
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  font-size: large;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.player-img{
+  width: 8em;
+  height: 8em;
+  border-radius: 50%;
+}
+.player-stats{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.player-stats span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media screen and (max-width: 48em) {
   main{
     margin-bottom: 4em;
@@ -248,6 +301,10 @@ align-items: center;
   .links :is(a,span){
     color: white;
   }
+  .group-list::-webkit-scrollbar{
+    display: none;
+  }
+  
   .date-picker{
     width: 100%;
   }

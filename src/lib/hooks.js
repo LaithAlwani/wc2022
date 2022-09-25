@@ -30,7 +30,7 @@ export const useUserData = () => {
   return { user, username, loading };
 };
 
-export const useGetGroups = () => {
+export const useGetStandings = () => {
   const [loading, setLoading] = useState(false);
   const [groups, setGroups] = useState([]);
   const [message, setMessage] = useState("")

@@ -6,7 +6,9 @@ import Home from "./pages/Home";
 import Games from "./pages/Matches";
 import { UserContext } from "./lib/context";
 import { useUserData } from "./lib/hooks";
-import Groups from "./pages/Groups";
+import Groups from "./pages/standings";
+import Ranking from "./pages/Ranking";
+import Login from "./pages/Login";
 
 function App() {
   const userData = useUserData()
@@ -20,6 +22,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="matches" element={<Games />} />
               <Route path="groups" element={<Groups />} />
+              <Route path="rankings" element={<Ranking />} />
+              <Route path="login" element={<Login />} />
             </Routes>
           </Layout>
         </div>

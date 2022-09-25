@@ -9,8 +9,8 @@ import debounce from "lodash.debounce";
 import { useNavigate } from "react-router-dom";
 import {FcGoogle} from "react-icons/fc"
 
-export default function Signin() {
-  const navigate = useNavigate()
+export default function Login() {
+  const navigate = useNavigate();
   const { user, username, loading } = useContext(UserContext);
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -19,7 +19,7 @@ export default function Signin() {
       const userDoc = await getDoc(doc(db, "users", user.uid));
       if (userDoc.data()) {
         toast.success(`Welcome ${userDoc.data().username}`);
-        navigate("/games")
+        navigate("/matches");
       }
     } catch (error) {
       // Handle Errors here.
@@ -33,15 +33,17 @@ export default function Signin() {
   };
 
   return (
-    !user &&
     <div>
-      {user && !username ? (
-        <UsernameForm />
-      ) : (
-        <section className="sign-in">
-          <span onClick={signInWithGoogle}><FcGoogle size={32}/>Sign in </span>
-        </section>
-      )}
+      <h1>Login</h1>
+      {user ? (!username && <UsernameForm />)
+        :
+      <section className="sign-in">
+        <span onClick={signInWithGoogle}>
+          <FcGoogle size={24} />
+          Sign in{" "}
+        </span>
+      </section>
+      }
     </div>
   );
 }
@@ -50,6 +52,7 @@ const UsernameForm = () => {
   const [formValue, setFormValue] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const { user } = useContext(UserContext);
 
@@ -95,10 +98,10 @@ const UsernameForm = () => {
     batch.set(doc(db, "site-stats", "main"), { users: increment(1) }, { merge: true });
     try {
       await batch.commit();
-      toast.success(`أهلا بكم ${formValue}`);
+      toast.success(`Welcome ${formValue}`);
+      navigate("/matches")
     } catch (err) {
-      console.log(err.message);
-      toast.error("حدث خطاء");
+      toast.error(err.message);
     }
   };
 
@@ -109,6 +112,9 @@ const UsernameForm = () => {
       username: formValue,
       displayName: user.displayName,
       email: user.email,
+      guesses: 0,
+      points: 0,
+      accurateGuess: 0,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       lastlogin: serverTimestamp(),

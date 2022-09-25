@@ -4,13 +4,11 @@ import { UserContext } from "../../lib/context";
 import { signOut } from "firebase/auth";
 import { auth } from "../../lib/firebaseConfig";
 import toast from "react-hot-toast";
-import Signin from "../Signin";
-import {GiSoccerField} from "react-icons/gi"
-import { GiSoccerKick } from "react-icons/gi"
-import { MdGroups } from "react-icons/md"
-import { MdLogout } from "react-icons/md"
-
-
+import { GiSoccerKick } from "react-icons/gi";
+import { MdGroups } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
+import { MdOutlineLogin } from "react-icons/md";
+import { ImTable2 } from "react-icons/im";
 
 export default function Navbar() {
   const { user, username, loading } = useContext(UserContext);
@@ -29,19 +27,33 @@ export default function Navbar() {
         <img src="/images/logo.png" alt="logo" className="logo" />
       </Link>
       <div className="links">
-        <Link to="matches"><GiSoccerField size={32}  /> Matches </Link>
-        <Link to="groups"><GiSoccerKick size={32} /> Groups</Link>
-        <Link to="my-groups"><MdGroups size={32} />Rakings</Link>
-        {user ? (
+        <Link to="matches">
+          <GiSoccerKick size={24} /> Matches{" "}
+        </Link>
+        <Link to="groups">
+          <ImTable2 size={24} />
+          Standings
+        </Link>
+        <Link to="rankings">
+          <MdGroups size={24} />
+          Rakings
+        </Link>
+        {user && username ? (
           <>
             <Link to="" onClick={handleLogout}>
-              <MdLogout size={32} />
+              <MdLogout size={24} />
               Log Out
             </Link>
-            <img src={user.photoURL} alt={username} className="avatar" />
+            <a href="#">
+              <img src={user.photoURL} alt={username} className="avatar" />
+              {username.substring(0, 12)}
+            </a>
           </>
         ) : (
-          <Signin />
+          <Link to="login">
+            <MdOutlineLogin size={24} />
+            Login
+          </Link>
         )}
       </div>
     </nav>
