@@ -32,9 +32,9 @@ export default function Ranking() {
               <img src={user.avatar} alt="" className="player-img" />
               <h4>{user.username}</h4>
               <div className="player-stats">
-                <span><RiCheckFill size={24} color="green" className="mr" /> {user.guesses}</span>
-                <span><RiCheckDoubleLine size={24} color="green" className="mr"/> {user.accurateGuess}</span>
-                <span><RiStarFill size={24} color="yellow" className="mr"/> {user.points}</span>
+                <span className="mr"><RiCheckFill size={24} color="green" /> {user.guesses}</span>
+                <span className="mr"><RiCheckDoubleLine size={24} color="green" /> {user.accurateGuess}</span>
+                <span className="mr"><RiStarFill size={24} color="yellow"/> {user.points}</span>
               </div>
             </div>
           ))}

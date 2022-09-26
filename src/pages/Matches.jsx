@@ -63,7 +63,7 @@ export default function Matches() {
       } else console.log("it's empty");
       setAllMatches(tempMatches);
     });
-    // return () => unsub;
+    return () => unsub;
   }, [today]);
   return (
     <section className="matches">

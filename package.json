@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite --open localhost",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "emu": "firebase emulators:start",
+    "deploly":"firebase deploy"
   },
   "dependencies": {
     "dateformat": "^5.0.3",

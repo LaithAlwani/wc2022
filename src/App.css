@@ -93,14 +93,15 @@ button{
 
 .group-list{
   display: flex;
-  overflow-x: scroll;
-  justify-content: flex-start;
-  max-width: none;
+  flex-wrap: wrap;
+  /* overflow-x: scroll; */
+  justify-content: center;
 }
 
 
 .group-card{
   min-width: 20em;
+  height: 22em;
   border-radius: 10em 10em 10em 50%/1.25em;
   background-color: var(--qatar-bg);
   margin:0.5em ;
@@ -194,7 +195,7 @@ table .group-team{
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--qatar-bg);
+  background: var(--qatar-bg);
   color: white;
 }
 .match-card span{
@@ -247,31 +248,41 @@ align-items: center;
 }
 .player-card{
   position: relative;
-  width: 16em;
+  padding-top: 2em;
+  width: 12em;
+  height: 16em;
   padding: 1em;
-  text-align: center;
-  background-color: var(--qatar-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url("../public/images/fifa_shield2.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   border-radius: 0.5em;
-  color: white;
+  z-index: -1;
 }
 .rank{
   position: absolute;
   top: 1em;
-  right: 1em;
+  right: 1.3em;
   font-size: large;
   font-weight: 900;
   font-style: italic;
 }
-
+.player-card h4{
+  margin-block-end: 0.5em;
+}
 .player-img{
-  width: 8em;
-  height: 8em;
+  width: 5em;
+  height: 5em;
   border-radius: 50%;
 }
 .player-stats{
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .player-stats span{
@@ -300,6 +311,12 @@ align-items: center;
   }
   .links :is(a,span){
     color: white;
+  }
+  .group-list {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: scroll;
+    height: 25em;
   }
   .group-list::-webkit-scrollbar{
     display: none;
