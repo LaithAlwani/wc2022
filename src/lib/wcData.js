@@ -413,7 +413,7 @@ export const matches = [
     dateUtc: "2022-11-21 13:00:00Z",
     location: "Khalifa International Stadium",
     homeTeam: { country: "England", code: "GB-ENG" },
-    awayTeam: { country: "Iran", coed: "IR" },
+    awayTeam: { country: "Iran", code: "IR" },
     group: "group B",
     homeTeamScore: null,
     awayTeamScore: null,

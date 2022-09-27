@@ -216,6 +216,13 @@ display: flex;
 align-items: center;
 }
 .team-score{margin-left: auto;}
+.predict-input{
+  width: 3em;
+  padding: 0.5em;
+  margin-left: auto;
+  border-radius: 0.5em;
+  border: none;
+}
 .shadow{
   box-shadow: 1px 1px 2px #333;
   height: 1.5em;

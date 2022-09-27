@@ -5,12 +5,14 @@ import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../lib/firebaseConfig";
 import { useGetStandings } from "../lib/hooks";
 import Flag from "react-flagkit";
+import { useEffect } from "react";
 
 
 export default function Home() {
   const { loading, groups } = useGetStandings();
 
   const importTeams = () => {
+    if(groups.length === 0)
     groupsData.forEach(({ id, teams }) => {
       setDoc(doc(db, "groups", id), { teams })
         .then((result) => {
@@ -20,13 +22,18 @@ export default function Home() {
     });
   };
 
+  useEffect(() => {
+    // importTeams()
+    
+    
+  },[])
+
   return (
     <section>
       <h1 style={{ fontSize: "1em" }}>
         <CountDownTimer />
       </h1>
 
-      {/* <button onClick={importTeams}>Import</button> */}
       <section className="rules">
         <h2>The Rules</h2>
         <p>Guess the score of every match, submit your guess every day to gain points</p>
@@ -36,7 +43,7 @@ export default function Home() {
         {/* <p>create a group and invite your friends to play</p> */}
       </section>
       <section className="group-list">
-        {!loading &&
+        {!loading && groups &&
           groups.map(({ id, teams }) => (
             <div key={id} className="group-card">
               <div>

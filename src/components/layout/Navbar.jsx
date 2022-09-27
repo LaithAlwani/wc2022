@@ -45,7 +45,7 @@ export default function Navbar() {
               Log Out
             </Link>
             <a href="#">
-              <img src={user.photoURL} alt={username} className="avatar" />
+              <img src={user.photoURL} className="avatar" />
               {username.substring(0, 12)}
             </a>
           </>
