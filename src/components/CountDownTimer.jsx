@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react"
+import dateFormat, { masks } from "dateformat";
 
 export default function CountDownTimer() {
-  const date = new Date("Nov 20, 2022 05:00:00").getTime();
+  const date = new Date("Nov 20, 2022 15:00:00Z").getTime();
   const [seconds, setSeconds] = useState("");
   const [minutes, setMinutes] = useState("");
   const [hours, setHours] = useState("");
   const [days, setDays] = useState("");
-  
+  dateFormat()
+
   const updateTimer = () => {
     const sec = 1000;
     const min = sec * 60; 
@@ -28,22 +30,22 @@ export default function CountDownTimer() {
   return (
     <div className="count-down">
       <div className="count-down-item">
-        <span>{days}</span>
+        <span>{days < 10 ? `0${days}`:days}</span>
         <span>Days</span>
       </div>
       <span>:</span>
       <div className="count-down-item">
-        <span>{ hours}</span>
+      <span>{hours <10 ? `0${hours}`:hours}</span>
         <span>hours</span>
       </div>
       <span>:</span>
       <div className="count-down-item">
-        <span>{ minutes}</span>
+        <span>{minutes <10 ? `0${minutes}`:minutes}</span>
         <span>minutes</span>
       </div>
       <span>:</span>
       <div className="count-down-item">
-        <span>{ seconds}</span>
+        <span>{ seconds <10 ? `0${seconds}`:seconds}</span>
         <span>seconds</span>
       </div>
     </div>
