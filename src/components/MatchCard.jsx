@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Flag from "react-flagkit";
 import dateFormat, { masks } from "dateformat";
 import { MdEdit } from "react-icons/md";
-import { doc, getDoc, writeBatch } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, writeBatch } from "firebase/firestore";
 import { db } from "../lib/firebaseConfig";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import { UserContext } from "../lib/context";
 
-export default function MatchCard({ match, userPredictions, setUserPredictions, user }) {
-  const [homeTeamPrediction, setHomeTeamPrediction] = useState("");
-  const [awayTeamPrediction, setAwayTeamPrediction] = useState("");
+export default function MatchCard({ match, user }) {
   const [isPredicting, setIsPredecting] = useState(false);
-  const [userPrediction, setUserPrediction] = useState({});
+  const [userPrediction, setUserPrediction] = useState(null);
+
+  const { user } = useContext(UserContext);
 
   const {
     matchNumber,
@@ -39,20 +40,15 @@ export default function MatchCard({ match, userPredictions, setUserPredictions, 
       batch
         .commit()
         .then(() => {
-          console.log("done");
-          // const tempArr = userPredictions.filter((p) => p.matchNumber !== matchNumber);
-          // console.log(tempArr);
-          // setUserPredictions([...tempArr, { matchNumber, homeTeamPrediction, awayTeamPrediction }]);
+         toast.success("Prediction Saved, Thank you!")
         })
-        .catch(console.log);
-      setIsPredecting(!isPredicting);
-    } else {
+        .catch(err=>toast.error(err.message));
       setIsPredecting(!isPredicting);
     }
   };
   useEffect(() => {
     if (user) {
-      getDoc(doc(db, "users", user.uid, "predictions", matchNumber)).then((doc) => {
+      onSnapshot(doc(db, "users", user.uid, "predictions", matchNumber), doc => {
         if (doc.exists()) {
           setUserPrediction(doc.data());
         }

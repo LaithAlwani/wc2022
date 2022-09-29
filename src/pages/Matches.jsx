@@ -1,17 +1,16 @@
-import { collection, doc, onSnapshot, query, setDoc, where } from "firebase/firestore";
+import { collection, doc, onSnapshot, orderBy, query, setDoc, where } from "firebase/firestore";
 import { db } from "../lib/firebaseConfig";
 import { matches } from "../lib/wcData";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { DateTime } from "luxon";
 
-import { UserContext } from "../lib/context";
 import MatchCard from "../components/MatchCard";
+import toast from "react-hot-toast";
 
 export default function Matches() {
   const [today, setToday] = useState(DateTime.fromISO("2022-11-20"));
   const [todaysMatches, setTodaysMatches] = useState([]);
-  const [userPredictions, setUserPredictions] = useState([]);
-  const { user } = useContext(UserContext);
+  
 
   const importMatches = () => {
     matches.forEach(
@@ -42,21 +41,20 @@ export default function Matches() {
           { merge: true }
         )
           .then(() => {
-            console.log("done");
+            toast.success("Matches Imported");
           })
-          .catch((err) => console.log);
+          .catch((err) => toast.error(err.message));
       }
     );
   };
 
   const changeDay = (value) => {
-    setUserPredictions([]);
     value === "next" ? setToday(today.plus({ days: 1 })) : setToday(today.minus({ days: 1 }));
   };
 
   useEffect(() => {
     const searchDate = today.toISODate();
-    const q = query(collection(db, "matches"), where("date", "==", searchDate));
+    const q = query(collection(db, "matches"), orderBy("dateUct"), where("date", "==", searchDate));
     const unsub = onSnapshot(q, (querySnapshot) => {
       const tempMatches = [];
       if (!querySnapshot.empty) {
@@ -69,19 +67,6 @@ export default function Matches() {
     return () => unsub;
   }, [today]);
 
-  useEffect(() => {
-    let unsub;
-    if (user) {
-      unsub = todaysMatches.forEach(({ matchNumber }) => {
-        onSnapshot(doc(db, "users", user.uid, "predictions", matchNumber), (doc) => {
-          if (doc.exists()) {
-            setUserPredictions((prevState) => [...prevState, doc.data()]);
-          }
-        });
-      });
-    }
-    return () => unsub;
-  }, [todaysMatches]);
 
   return (
     <section className="matches">
@@ -102,9 +87,7 @@ export default function Matches() {
             <MatchCard
               key={match.matchNumber}
               match={match}
-              userPredictions={userPredictions}
-              setUserPredictions={setUserPredictions}
-              user={user}
+            
             />
           ))
         ) : (

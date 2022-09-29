@@ -102,7 +102,6 @@ button{
 }
 
 .rules {
-  text-align: center;
   margin-inline: auto;
   margin-block: 1em;
   max-width: 30em;
@@ -111,6 +110,16 @@ button{
   border-radius: 0.5em;
 }
 
+.rules hgroup{
+text-align: center;
+}
+.rules ul{margin-inline: auto;}
+.rules li{
+  color: green;
+}
+.rules li:last-of-type{
+  color: red;
+}
 .group-list{
   display: flex;
   flex-wrap: wrap;
