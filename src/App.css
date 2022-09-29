@@ -41,12 +41,29 @@ nav .links :is(a, span){
   justify-content: center;
   font-size: 0.75em;
 }
+.sign-in{
+text-align: center;
+}
 
-.sign-in span{
-    font-weight: 500;
-    color: #333;
-    text-decoration: inherit;
-    padding: 0 0.5em;
+.choose-name-form{
+  width: 320px;
+  margin-inline: auto;
+}
+
+.choose-name-form input{
+  width: 100%;
+  border: 1px solid var(--qatar-bg);
+  padding: 0.5em;
+  border-radius: 0.5em;
+  
+}
+
+.choose-name-form button{
+  float: right;
+  background-color: var(--qatar-bg);
+  color: white;
+  font-weight: 500;
+  margin-block-start: 1em;
 }
 
 button{
@@ -55,6 +72,9 @@ button{
   background-color: white;
   padding: 0.5em;
   border-radius: 0.5em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 .mr{
   margin-right: 0.5em;

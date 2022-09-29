@@ -7,7 +7,7 @@ import { UserContext } from "../lib/context";
 import { toast } from "react-hot-toast";
 import debounce from "lodash.debounce";
 import { useNavigate } from "react-router-dom";
-import {FcGoogle} from "react-icons/fc"
+import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -35,15 +35,16 @@ export default function Login() {
   return (
     <div>
       <h1>Login</h1>
-      {user ? (!username && <UsernameForm />)
-        :
-      <section className="sign-in">
-        <span onClick={signInWithGoogle}>
-          <FcGoogle size={24} />
-          Sign in{" "}
-        </span>
-      </section>
-      }
+      {user ? (
+        !username && <UsernameForm />
+      ) : (
+        <section className="sign-in">
+          <button onClick={signInWithGoogle}>
+            <FcGoogle size={24} />
+            Sign in{" "}
+          </button>
+        </section>
+      )}
     </div>
   );
 }
@@ -52,13 +53,13 @@ const UsernameForm = () => {
   const [formValue, setFormValue] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
 
   const handleChange = (e) => {
     const rawVal = e.target.value;
-    const val = rawVal.charAt(0).toUpperCase() + rawVal.slice(1).toLowerCase();
+    const val = rawVal;
     const re = /^.{3,25}$/;
     if (val.length < 3) {
       setFormValue(val);
@@ -99,7 +100,7 @@ const UsernameForm = () => {
     try {
       await batch.commit();
       toast.success(`Welcome ${formValue}`);
-      navigate("/matches")
+      navigate("/matches");
     } catch (err) {
       toast.error(err.message);
     }
@@ -126,13 +127,13 @@ const UsernameForm = () => {
     checkUsername(formValue);
   }, [formValue, checkUsername]);
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="username" value={formValue} onChange={handleChange} />
-        <button>Choose</button>
-      </form>
+    <form onSubmit={handleSubmit} className="choose-name-form">
+      <h3>Choose A Display Name</h3>
+      <p>Your display name is unique and is 3-15 characters long</p>
+      <input type="text" name="username" value={formValue} onChange={handleChange} />
+      <button>Choose</button>
       <UsernameMessage username={formValue} isValid={isValid} loading={loading} />
-    </>
+    </form>
   );
 };
 
