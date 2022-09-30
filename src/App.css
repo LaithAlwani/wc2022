@@ -95,25 +95,22 @@ button{
   align-items: center;
 }
 .count-down-item span:first-of-type {
-  font-size: 2.5em;
+  font-size: 2em;
 }
 .count-down-item span:last-of-type {
-  font-size: 0.7em;
+  font-size: 0.5em;
 }
 
 .rules {
   margin-inline: auto;
-  margin-block: 1em;
-  max-width: 30em;
+  margin-block-end: 1em;
+  max-width: 22em;
   padding: 1em;
-  border: 1px #333 solid;
+  border: 2px var(--qatar-bg) solid;
   border-radius: 0.5em;
 }
 
-.rules hgroup{
-text-align: center;
-}
-.rules ul{margin-inline: auto;}
+
 .rules li{
   color: green;
 }

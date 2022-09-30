@@ -2,13 +2,13 @@ import { useState, useContext } from "react";
 import Flag from "react-flagkit";
 import dateFormat, { masks } from "dateformat";
 import { MdEdit } from "react-icons/md";
-import { doc, getDoc, onSnapshot, writeBatch } from "firebase/firestore";
+import { doc, onSnapshot, writeBatch } from "firebase/firestore";
 import { db } from "../lib/firebaseConfig";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { UserContext } from "../lib/context";
 
-export default function MatchCard({ match, user }) {
+export default function MatchCard({ match }) {
   const [isPredicting, setIsPredecting] = useState(false);
   const [userPrediction, setUserPrediction] = useState(null);
 
@@ -26,7 +26,7 @@ export default function MatchCard({ match, user }) {
     group,
   } = match;
 
-  const handlePrediction = (e, matchNumber, homeTeam, awayTeam, homeTeamScore, awayTeamScore) => {
+  const handlePrediction = (e, matchNumber) => {
     e.preventDefault();
     if (isPredicting) {
       if (!userPrediction.homeTeamPrediction || !userPrediction.awayTeamPrediction) {
@@ -36,7 +36,7 @@ export default function MatchCard({ match, user }) {
       const matchRef = doc(db, "matches", matchNumber, "users", user.uid);
       const userRef = doc(db, "users", user.uid, "predictions", matchNumber);
       batch.set(matchRef, {...userPrediction});
-      batch.set(userRef, { matchNumber, ...userPrediction }); //adding winning team
+      batch.set(userRef, { matchNumber, ...userPrediction });
       batch
         .commit()
         .then(() => {

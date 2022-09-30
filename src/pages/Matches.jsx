@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 export default function Matches() {
   const [today, setToday] = useState(DateTime.fromISO("2022-11-20"));
   const [todaysMatches, setTodaysMatches] = useState([]);
-  
 
   const importMatches = () => {
     matches.forEach(
@@ -54,7 +53,7 @@ export default function Matches() {
 
   useEffect(() => {
     const searchDate = today.toISODate();
-    const q = query(collection(db, "matches"), orderBy("dateUct"), where("date", "==", searchDate));
+    const q = query(collection(db, "matches"), orderBy("dateUtc"), where("date", "==", searchDate));
     const unsub = onSnapshot(q, (querySnapshot) => {
       const tempMatches = [];
       if (!querySnapshot.empty) {
@@ -67,33 +66,26 @@ export default function Matches() {
     return () => unsub;
   }, [today]);
 
-
   return (
     <section className="matches">
-      <button onClick={importMatches}>import</button>
       <h2>Matches: {today.toLocaleString(DateTime.DATE_MED)}</h2>
       <input
         className="date-picker"
         type="date"
         onChange={(e) => setToday(DateTime.fromISO(e.target.value))}
       />
-      <div className="date-btns">
-        <button onClick={() => changeDay("prev")}>Prev</button>
-        <button onClick={() => changeDay("next")}>Next</button>
-      </div>
       <div className="matches-container">
         {todaysMatches.length > 0 ? (
-          todaysMatches.map((match) => (
-            <MatchCard
-              key={match.matchNumber}
-              match={match}
-            
-            />
-          ))
+          todaysMatches.map((match) => <MatchCard key={match.matchNumber} match={match} />)
         ) : (
           <p>no games today</p>
         )}
       </div>
+      <div className="date-btns">
+        <button onClick={() => changeDay("prev")}>Prev</button>
+        <button onClick={() => changeDay("next")}>Next</button>
+      </div>
+      <button onClick={importMatches}>import</button>
     </section>
   );
 }

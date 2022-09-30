@@ -12,6 +12,7 @@ import { FcGoogle } from "react-icons/fc";
 export default function Login() {
   const navigate = useNavigate();
   const { user, username, loading } = useContext(UserContext);
+  
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -108,6 +109,7 @@ const UsernameForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!formValue) return toast.error("Username cannot be empty")
     const newUser = {
       avatar: user.photoURL,
       username: formValue,
@@ -130,7 +132,7 @@ const UsernameForm = () => {
     <form onSubmit={handleSubmit} className="choose-name-form">
       <h3>Choose A Display Name</h3>
       <p>Your display name is unique and is 3-15 characters long</p>
-      <input type="text" name="username" value={formValue} onChange={handleChange} />
+      <input type="text" name="username" value={formValue} onChange={handleChange}/>
       <button>Choose</button>
       <UsernameMessage username={formValue} isValid={isValid} loading={loading} />
     </form>

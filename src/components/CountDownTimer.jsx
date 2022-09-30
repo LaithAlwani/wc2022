@@ -28,7 +28,7 @@ export default function CountDownTimer() {
   }, []);
   
   return (
-    <div className="count-down">
+    <h1 className="count-down">
       <div className="count-down-item">
         <span>{days < 10 ? `0${days}`:days}</span>
         <span>Days</span>
@@ -48,6 +48,6 @@ export default function CountDownTimer() {
         <span>{ seconds <10 ? `0${seconds}`:seconds}</span>
         <span>seconds</span>
       </div>
-    </div>
+    </h1>
   )
 }

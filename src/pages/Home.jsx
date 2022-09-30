@@ -1,11 +1,9 @@
 import CountDownTimer from "../components/CountDownTimer";
-import Signin from "./Login";
 import { groupsData } from "../lib/wcData";
 import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "../lib/firebaseConfig";
+import { db } from "../lib/firebaseConfig";
 import { useGetStandings } from "../lib/hooks";
 import Flag from "react-flagkit";
-import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function Home() {
@@ -22,16 +20,9 @@ export default function Home() {
       });
   };
 
-  useEffect(() => {
-    // importTeams()
-  }, []);
-
   return (
     <section>
-      <h1 style={{ fontSize: "1em" }}>
-        <CountDownTimer />
-      </h1>
-
+      <CountDownTimer />
       <section className="rules">
         <hgroup>
           <h2>The Rules</h2>
@@ -68,6 +59,7 @@ export default function Home() {
             </div>
           ))}
       </section>
+      <button onClick={importTeams}>import</button>
     </section>
   );
 }
