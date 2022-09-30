@@ -9,6 +9,7 @@ main {
   max-width: var(--width);
   padding: var(--padding);
   margin: 0 auto;
+  user-select:none;
 }
 
 /* layout */
@@ -186,6 +187,7 @@ table .group-team{
 /*games*/
 .matches{
   text-align: center;
+  
 }
 .date-picker{
   width: 50%;
@@ -205,12 +207,16 @@ table .group-team{
   display: flex;
   justify-content: space-around;
 }
+.swipe-info{display: none;}
 .matches-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
   justify-content: center;
+  animation-name: example;
+  animation-duration: 4s;
 }
+
 .match-card {
   padding: 0;
   border: 1px #333 solid;
@@ -241,9 +247,10 @@ table .group-team{
 display: flex;
 align-items: center;
 }
+
 .team-score{margin-left: auto;}
 .predict-input{
-  width: 3em;
+  width: 4em;
   padding: 0.5em;
   margin-left: auto;
   border-radius: 0.5em;
@@ -358,6 +365,10 @@ align-items: center;
   .date-picker{
     width: 100%;
   }
+  .date-btns{
+    display: none;
+  }
+  .swipe-info{display: block;}
   footer{
     display: none;
   }

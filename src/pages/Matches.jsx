@@ -3,13 +3,39 @@ import { db } from "../lib/firebaseConfig";
 import { matches } from "../lib/wcData";
 import { useEffect, useState } from "react";
 import { DateTime } from "luxon";
-
 import MatchCard from "../components/MatchCard";
 import toast from "react-hot-toast";
 
 export default function Matches() {
   const [today, setToday] = useState(DateTime.fromISO("2022-11-20"));
   const [todaysMatches, setTodaysMatches] = useState([]);
+  const [touchPosition, setTouchPosition] = useState(null);
+
+  const handleTouchStart = (e) => {
+    const touchDown = e.touches[0].clientX;
+    setTouchPosition(touchDown);
+  };
+
+  const handleTouchMove = (e) => {
+    const touchDown = touchPosition;
+
+    if (touchDown === null) {
+      return;
+    }
+
+    const currentTouch = e.touches[0].clientX;
+    const diff = touchDown - currentTouch;
+
+    if (diff > 5) {
+      changeDay("next");
+    }
+
+    if (diff < -5) {
+      changeDay("prev");
+    }
+
+    setTouchPosition(null);
+  };
 
   const importMatches = () => {
     matches.forEach(
@@ -69,22 +95,27 @@ export default function Matches() {
   return (
     <section className="matches">
       <h2>Matches: {today.toLocaleString(DateTime.DATE_MED)}</h2>
-      <input
+      {/* <input
         className="date-picker"
         type="date"
         onChange={(e) => setToday(DateTime.fromISO(e.target.value))}
-      />
-      <div className="matches-container">
+      /> */}
+      <div className="date-btns">
+        <button onClick={() => changeDay("prev")}>Prev</button>
+        <button onClick={() => changeDay("next")}>Next</button>
+      </div>
+      <p className="swipe-info">Swipe right or left</p>
+      <div
+        className="matches-container"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}>
         {todaysMatches.length > 0 ? (
           todaysMatches.map((match) => <MatchCard key={match.matchNumber} match={match} />)
         ) : (
           <p>no games today</p>
         )}
       </div>
-      <div className="date-btns">
-        <button onClick={() => changeDay("prev")}>Prev</button>
-        <button onClick={() => changeDay("next")}>Next</button>
-      </div>
+
       <button onClick={importMatches}>import</button>
     </section>
   );
