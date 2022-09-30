@@ -35,7 +35,7 @@ export default function Home() {
         </ul>
       </section>
       <section className="group-list">
-        {!loading &&
+        {!loading ?
           groups &&
           groups.map(({ id, teams }) => (
             <div key={id} className="group-card">
@@ -57,7 +57,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          ))}
+          )): <div className="loader"></div> }
       </section>
       <button onClick={importTeams}>import</button>
     </section>

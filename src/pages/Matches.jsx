@@ -10,6 +10,7 @@ export default function Matches() {
   const [today, setToday] = useState(DateTime.fromISO("2022-11-20"));
   const [todaysMatches, setTodaysMatches] = useState([]);
   const [touchPosition, setTouchPosition] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleTouchStart = (e) => {
     const touchDown = e.touches[0].clientX;
@@ -79,7 +80,8 @@ export default function Matches() {
 
   useEffect(() => {
     const searchDate = today.toISODate();
-    const q = query(collection(db, "matches"), orderBy("dateUtc"), where("date", "==", searchDate));
+    const q = query(collection(db, "matches"), where("date", "==", searchDate));
+    setLoading(true);
     const unsub = onSnapshot(q, (querySnapshot) => {
       const tempMatches = [];
       if (!querySnapshot.empty) {
@@ -87,14 +89,16 @@ export default function Matches() {
           tempMatches.push({ matchNumber: doc.id, ...doc.data() });
         });
       } else console.log("it's empty");
+      tempMatches.sort((a, b) => new Date(a.dateUtc) - new Date(b.dateUtc));
       setTodaysMatches(tempMatches);
+      setLoading(false);
     });
     return () => unsub;
   }, [today]);
 
   return (
     <section className="matches">
-      <h2>Matches: {today.toLocaleString(DateTime.DATE_MED)}</h2>
+      <h2>{today.toLocaleString(DateTime.DATE_MED)}</h2>
       {/* <input
         className="date-picker"
         type="date"
@@ -105,14 +109,19 @@ export default function Matches() {
         <button onClick={() => changeDay("next")}>Next</button>
       </div>
       <p className="swipe-info">Swipe right or left</p>
+
       <div
         className="matches-container"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}>
-        {todaysMatches.length > 0 ? (
-          todaysMatches.map((match) => <MatchCard key={match.matchNumber} match={match} />)
+        {!loading ? (
+          todaysMatches.length > 0 ? (
+            todaysMatches.map((match) => <MatchCard key={match.matchNumber} match={match} />)
+          ) : (
+            <h2>no games today</h2>
+          )
         ) : (
-          <p>no games today</p>
+          <div className="loader"></div>
         )}
       </div>
 

@@ -1,6 +1,6 @@
 import { collection, limit, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { db, auth } from "../lib/firebaseConfig";
+import { db } from "../lib/firebaseConfig";
 import {RiCheckFill} from "react-icons/ri"
 import {RiCheckDoubleLine} from "react-icons/ri"
 import {RiStarFill} from "react-icons/ri"
@@ -15,7 +15,6 @@ export default function Ranking() {
       querySnapshot.forEach((doc) => {
         tempUsers.push({ ...doc.data() });
       });
-      console.log(tempUsers);
       setUser(tempUsers);
     });
     return () => unsub;

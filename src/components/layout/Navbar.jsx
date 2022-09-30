@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { GiSoccerKick } from "react-icons/gi";
 import { MdGroups } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
+import { MdHome } from "react-icons/md";
 import { MdOutlineLogin } from "react-icons/md";
 import { ImTable2 } from "react-icons/im";
 
@@ -27,6 +28,9 @@ export default function Navbar() {
         <img src="/images/logo.png" alt="logo" className="logo" />
       </Link>
       <div className="links">
+        <Link to="">
+          <MdHome size={24} /> Home{" "}
+        </Link>
         <Link to="matches">
           <GiSoccerKick size={24} /> Matches{" "}
         </Link>
