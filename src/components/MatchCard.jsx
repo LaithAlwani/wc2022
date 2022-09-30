@@ -77,6 +77,7 @@ export default function MatchCard({ match }) {
     <div className="match-card" key={matchNumber}>
       <div className="time-date">
         <span>{dateFormat(dateUtc, "dd/mmm/yyyy hh:MM tt")}</span>
+        <span>{group}</span>
         <span>{matchNumber < 10 ? `0${matchNumber}` : matchNumber}</span>
       </div>
       <div className="match-teams">
