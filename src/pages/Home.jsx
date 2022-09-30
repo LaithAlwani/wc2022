@@ -45,7 +45,7 @@ export default function Home() {
                 <span>P</span>
               </div>
               {teams.map((team) => (
-                <div className="">
+                <div key={team.code}>
                   <h4>
                     {" "}
                     <Flag country={team.code} size={32} className="mr shadow" />

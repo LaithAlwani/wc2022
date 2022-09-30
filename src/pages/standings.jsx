@@ -3,7 +3,6 @@ import { useGetStandings } from "../lib/hooks";
 
 export default function standings() {
   const { loading, groups } = useGetStandings();
-  console.log(groups)
   return (
     !loading &&
       groups.map(({ id, teams }) => (
